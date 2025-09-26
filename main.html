@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game Project Steps</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-left: 4px solid #007BFF;
+            overflow-x: auto;
+        }
+        code {
+            font-family: monospace;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guessing Game Project: Step-by-Step Guide</h1>
+
+    <h2>Step 1: Create Project Folder</h2>
+    <ol>
+        <li>Open a terminal.</li>
+        <li>Create a folder for your project:
+            <pre><code>mkdir guessinggame-project
+cd guessinggame-project</code></pre>
+        </li>
+    </ol>
+
+    <h2>Step 2: Create <code>guessinggame.sh</code></h2>
+    <ol>
+        <li>Create the Bash script file:
+            <pre><code>touch guessinggame.sh
+chmod +x guessinggame.sh</code></pre>
+        </li>
+        <li>Open it in an editor and paste the following code:
+            <pre><code>#!/bin/bash
+
+count_files() {
+  echo $(ls -1 | wc -l)
+}
+
+prompt_guess() {
+  echo -n "Guess how many files are in the current directory: "
+  read guess
+}
+
+num_files=$(count_files)
+
+while true; do
+  prompt_guess
+  if [[ $guess -lt $num_files ]]; then
+    echo "Too low! Try again."
+  elif [[ $guess -gt $num_files ]]; then
+    echo "Too high! Try again."
+  else
+    echo "Congratulations! You guessed correctly."
+    break
+  fi
+done</code></pre>
+        </li>
+    </ol>
+
+    <h2>Step 3: Create the Makefile</h2>
+    <ol>
+        <li>Create a file called <code>Makefile</code>:
+            <pre><code>touch Makefile</code></pre>
+        </li>
+        <li>Paste this content:
+            <pre><code># Variables
+SCRIPT=guessinggame.sh
+README=README.md
+DATE=$(shell date)
+
+all: $(README)
+
+$(README):
+	@echo "# Guessing Game Project" > $(README)
+	@echo "" >> $(README)
+	@echo "Generated on: $(DATE)" >> $(README)
+	@echo "" >> $(README)
+	@echo "Number of lines in $(SCRIPT):" >> $(README)
+	@wc -l < $(SCRIPT) >> $(README)
+
+clean:
+	rm -f $(README)</code></pre>
+        </li>
+    </ol>
+
+    <h2>Step 4: Test the Bash Script</h2>
+    <ol>
+        <li>Run the game:
+            <pre><code>bash guessinggame.sh</code></pre>
+        </li>
+        <li>The program will repeatedly ask for guesses until you enter the correct number of files.</li>
+    </ol>
+
+    <h2>Step 5: Generate README.md</h2>
+    <ol>
+        <li>Run Makefile:
+            <pre><code>make</code></pre>
+        </li>
+        <li>Check README.md content:
+            <pre><code>cat README.md</code></pre>
+        </li>
+    </ol>
+
+    <h2>Step 6: Initialize Git and Push to GitHub</h2>
+    <ol>
+        <li>Initialize Git:
+            <pre><code>git init</code></pre>
+        </li>
+        <li>Add files and commit:
+            <pre><code>git add guessinggame.sh Makefile README.md
+git commit -m "Initial commit"</code></pre>
+        </li>
+        <li>Create a repository on GitHub and push:
+            <pre><code>git remote add origin &lt;your-github-url&gt;
+git branch -M main
+git push -u origin main</code></pre>
+        </li>
+    </ol>
+
+    <h2>Step 7: Set up GitHub Pages</h2>
+    <ol>
+        <li>Go to your GitHub repository → <strong>Settings → Pages</strong>.</li>
+        <li>Select <strong>main branch</strong> and <strong>root folder</strong> as source.</li>
+        <li>Save. GitHub will provide a URL for your Pages site.</li>
+    </ol>
+
+    <h2>Step 8: Submit URLs</h2>
+    <ul>
+        <li>URL 1: GitHub repository</li>
+        <li>URL 2: GitHub Pages site</li>
+    </ul>
+</body>
+</html>
